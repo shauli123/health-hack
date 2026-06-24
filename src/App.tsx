@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { LogEntry } from './types/health'
 import { isHealthConnectAvailable } from './services/healthConnect'
 import { Header } from './components/Header'
@@ -14,11 +14,11 @@ export default function App() {
     setLogs((prev) => [entry, ...prev])
   }, [])
 
-  useState(() => {
+  useEffect(() => {
     isHealthConnectAvailable()
       .then((res) => setHcAvailable(res.availability === 'Available'))
       .catch(() => setHcAvailable(false))
-  })
+  }, [])
 
   return (
     <div className="mx-auto min-h-screen max-w-2xl px-4 py-8">
