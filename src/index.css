@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #252836 transparent;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-zinc-800 bg-surface-light p-6 shadow-xl;
+  }
+
+  .btn-primary {
+    @apply flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent-emerald to-accent-cyan px-6 py-3 font-semibold text-zinc-900 shadow-lg shadow-accent-emerald/20 transition-all duration-200 hover:scale-[1.02] hover:shadow-accent-emerald/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100;
+  }
+
+  .btn-danger {
+    @apply flex w-full items-center justify-center gap-2 rounded-xl border border-danger-border bg-danger-subtle/40 px-6 py-3 font-semibold text-red-400 shadow-lg shadow-red-900/20 transition-all duration-200 hover:border-red-700 hover:bg-danger-subtle/60 hover:shadow-red-900/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100;
+  }
+
+  .preset-btn {
+    @apply rounded-lg border border-zinc-700 bg-zinc-800/60 px-4 py-2 text-sm font-medium text-zinc-300 transition-all duration-150 hover:border-accent-emerald/50 hover:text-accent-emerald active:scale-95;
+  }
+
+  .preset-btn.active {
+    @apply border-accent-emerald bg-accent-emerald/10 text-accent-emerald;
+  }
+
+  .selector-btn {
+    @apply rounded-lg border border-zinc-700 bg-zinc-800/60 px-3 py-1.5 text-xs font-medium text-zinc-400 transition-all duration-150 hover:border-accent-cyan/50 hover:text-accent-cyan;
+  }
+
+  .selector-btn.active {
+    @apply border-accent-cyan bg-accent-cyan/10 text-accent-cyan;
+  }
+
+  .log-entry {
+    @apply rounded-lg border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm;
+  }
+}

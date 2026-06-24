@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HealthHack</string>
+    <string name="title_activity_main">HealthHack</string>
+    <string name="package_name">com.healthhack.app</string>
+    <string name="custom_url_scheme">com.healthhack.app</string>
+</resources>
