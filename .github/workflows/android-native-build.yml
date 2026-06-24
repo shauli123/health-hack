@@ -31,8 +31,10 @@ jobs:
       - name: Install Capacitor dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Sync Capacitor Android
-        run: npx @capacitor/cli sync android
+      - name: Fix Permissions and Sync Android
+        run: |
+          chmod +x ./node_modules/.bin/cap
+          npx @capacitor/cli sync android
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x android/gradlew
