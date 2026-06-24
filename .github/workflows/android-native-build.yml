@@ -31,10 +31,18 @@ jobs:
       - name: Install Capacitor dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Fix Permissions and Sync Android
-        run: |
-          chmod +x ./node_modules/.bin/cap
-          npx @capacitor/cli sync android
+      - name: Grant execute permission for Cap CLI
+        run: chmod +x ./node_modules/.bin/cap
+
+      - name: Add Android platform (if missing)
+        run: npx @capacitor/cli add android
+        continue-on-error: true
+
+      - name: Sync Capacitor with Android
+        run: npx @capacitor/cli sync android
+
+      - name: Inject Health Connect manifest entries
+        run: node scripts/patch-android-manifest.mjs
 
       - name: Grant execute permission for Gradle wrapper
         run: chmod +x android/gradlew

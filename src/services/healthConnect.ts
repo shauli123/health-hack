@@ -2,15 +2,26 @@ import { HealthConnect } from 'capacitor-health-connect'
 import { TIME_PRESET_MAP } from '../types/health'
 import type { TimePreset } from '../types/health'
 
-export async function requestWritePermissions(): Promise<boolean> {
+export interface PermissionResult {
+  granted: boolean
+  error?: string
+}
+
+export interface AvailabilityResult {
+  status: string
+  raw?: string
+}
+
+export async function requestWritePermissions(): Promise<PermissionResult> {
   try {
     const result = await HealthConnect.requestHealthPermissions({
       read: ['Steps'],
       write: ['Steps'],
     })
-    return result.hasAllPermissions
-  } catch {
-    return false
+    return { granted: result.hasAllPermissions }
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { granted: false, error: msg }
   }
 }
 
@@ -40,6 +51,12 @@ export function openHealthConnectSettings(): Promise<void> {
   return HealthConnect.openHealthConnectSetting()
 }
 
-export function isHealthConnectAvailable(): Promise<{ availability: string }> {
-  return HealthConnect.checkAvailability()
+export async function checkAvailability(): Promise<AvailabilityResult> {
+  try {
+    const res = await HealthConnect.checkAvailability()
+    return { status: res.availability, raw: res.availability }
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    return { status: 'Error', raw: msg }
+  }
 }
